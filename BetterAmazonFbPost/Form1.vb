@@ -28,7 +28,7 @@
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
         Dim Source As String
         Dim Destination As String
         Source = ListBox1.SelectedItem
@@ -39,6 +39,14 @@
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Dim Source As String
+        Dim Destination As String
+        Source = ListBox1.SelectedItem
+        Source = Replace(Source, "SX355", "SX1000")
+        Destination = "C:\temp\img.jpg"
+        If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
+        My.Computer.Network.DownloadFile(Source, Destination)
+
         If System.IO.File.Exists("C:\temp\blank.png") = False Then
             Dim NewBitmap As New Bitmap(1200, 628, Imaging.PixelFormat.Format32bppPArgb)
             Graphics.FromImage(NewBitmap).Clear(Color.White)
