@@ -79,9 +79,12 @@
         Graphics.FromImage(newBM).DrawImage(imgBGb, 0, 0)
         Graphics.FromImage(newBM).DrawImage(imgAmz, Xpt, 0)
         newBM.Save("C:\temp\image02.png", Imaging.ImageFormat.Png)
+
+        DisplayMetaDescription()
+
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs)
         Dim Directory As String = TextBox1.Text
         DisplayMetaDescription()
     End Sub

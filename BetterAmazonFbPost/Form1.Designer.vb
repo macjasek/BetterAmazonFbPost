@@ -30,7 +30,6 @@ Partial Class Form1
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.TextBoxDomain = New System.Windows.Forms.TextBox()
         Me.TextBoxTitle = New System.Windows.Forms.TextBox()
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
@@ -111,15 +110,6 @@ Partial Class Form1
         Me.RichTextBox1.Text = ""
         Me.RichTextBox1.Visible = False
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(925, 443)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 9
-        Me.Button5.Text = "Create Html"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
         'TextBoxDomain
         '
         Me.TextBoxDomain.Location = New System.Drawing.Point(102, 513)
@@ -189,7 +179,6 @@ Partial Class Form1
         Me.Controls.Add(Me.TextBoxDescription)
         Me.Controls.Add(Me.TextBoxTitle)
         Me.Controls.Add(Me.TextBoxDomain)
-        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button2)
@@ -214,7 +203,6 @@ Partial Class Form1
     Friend WithEvents Button2 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents Button5 As Button
     Friend WithEvents TextBoxDomain As TextBox
     Friend WithEvents TextBoxTitle As TextBox
     Friend WithEvents TextBoxDescription As TextBox
