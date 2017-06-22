@@ -9,9 +9,9 @@
         Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
         For Each htmlElement As HtmlElement In htmlElementCollection
             Dim imgUrl As String = htmlElement.GetAttribute("src")
-            'If imgUrl.Contains("/ecx") Then
-            ListBox1.Items.Add(imgUrl)
-            'End If
+            If imgUrl.Contains("jpg") Or imgUrl.Contains("png") Then
+                ListBox1.Items.Add(imgUrl)
+            End If
 
         Next
         WebBrowser1.Visible = False
@@ -22,9 +22,22 @@
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         PictureBox1.ImageLocation = ListBox1.SelectedItem
         If ListBox1.SelectedIndex > 0 Then
-            Label3.Text = PictureBox1.Image.Width
+            Dim Destination As String = "C:\temp\imgtmp.jpg"
+            OnLineToLocal(ListBox1.SelectedItem.ToString, Destination)
+            Dim bmp As New Bitmap("C:\temp\imgtmp.jpg")
+
+            Label3.Text = bmp.Width.ToString()
+            bmp.Dispose()
+            If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
         End If
 
+
+    End Sub
+
+    Public Sub OnLineToLocal(source As String, Destination As String)
+
+        If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
+        My.Computer.Network.DownloadFile(source, Destination)
 
     End Sub
 
@@ -74,6 +87,7 @@
 
         Graphics.FromImage(newBM).DrawImage(imgBG, 0, 0)
         Graphics.FromImage(newBM).DrawImage(imgAmz, Xpt, 0)
+
         newBM.Save("C:\temp\image01.png", Imaging.ImageFormat.Png)
         PictureBox1.Image = New Bitmap(newBM)
         Graphics.FromImage(newBM).DrawImage(imgBGb, 0, 0)
@@ -81,6 +95,11 @@
         newBM.Save("C:\temp\image02.png", Imaging.ImageFormat.Png)
 
         DisplayMetaDescription()
+
+        imgBG.Dispose()
+        imgBGb.Dispose()
+        imgAmz.Dispose()
+        newBM.Dispose()
 
     End Sub
 
