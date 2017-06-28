@@ -51,20 +51,11 @@
         My.Computer.Network.DownloadFile(Source, Destination)
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Dim Source As String
-        Dim Destination As String
-        Source = ListBox1.SelectedItem
-        Source = Replace(Source, "SX355", "SX1000")
-        Destination = "C:\temp\img.jpg"
-        If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
-        My.Computer.Network.DownloadFile(Source, Destination)
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btnCreateAd.Click
 
-        If System.IO.File.Exists("C:\temp\blank.png") = False Then
-            Dim NewBitmap As New Bitmap(1200, 628, Imaging.PixelFormat.Format32bppPArgb)
-            Graphics.FromImage(NewBitmap).Clear(Color.White)
-            NewBitmap.Save("C:\temp\blank.png", Imaging.ImageFormat.Png)
-        End If
+        DownloadSelectedImages()
+        CreateBlankPng()
+
         Dim newBM As Bitmap     'the "canvas" to draw on
         Dim imgBG As Bitmap     'the background image
         Dim imgBGb As Bitmap    'the black background image
@@ -101,6 +92,21 @@
         imgAmz.Dispose()
         newBM.Dispose()
 
+    End Sub
+    Const DESTINATION As String = "C:\temp\img.jpg"
+
+    Public Sub DownloadSelectedImages()
+        Dim Source As String = Replace(ListBox1.SelectedItem, "SX355", "SX1000")
+        If IO.File.Exists(DESTINATION) Then IO.File.Delete(DESTINATION)
+        My.Computer.Network.DownloadFile(Source, DESTINATION)
+    End Sub
+
+    Public Sub CreateBlankPng()
+        If IO.File.Exists("C:\temp\blank.png") = False Then
+            Dim NewBitmap As New Bitmap(1200, 628, Imaging.PixelFormat.Format32bppPArgb)
+            Graphics.FromImage(NewBitmap).Clear(Color.White)
+            NewBitmap.Save("C:\temp\blank.png", Imaging.ImageFormat.Png)
+        End If
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs)
