@@ -2,9 +2,11 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         WebBrowser1.Navigate(TextBox1.Text)
 
+
+
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         Dim htmlDocument As HtmlDocument = Me.WebBrowser1.Document
         Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
         For Each htmlElement As HtmlElement In htmlElementCollection
@@ -56,14 +58,12 @@
         DownloadSelectedImages()
         CreateBlankPng()
 
-        Dim newBM As Bitmap     'the "canvas" to draw on
-        Dim imgBG As Bitmap     'the background image
-        Dim imgBGb As Bitmap    'the black background image
-        Dim imgAmz As Bitmap   'the amazon image
-        imgBG = Image.FromFile("C:\temp\blank.png")
-        imgBGb = Image.FromFile("C:\temp\blank-black.png")
-        imgAmz = Image.FromFile("C:\temp\img.jpg")
-        newBM = New Bitmap(1200, 628)
+        Dim newBM As Bitmap = Nothing
+        Dim imgBG As Bitmap = Nothing
+        Dim imgBGb As Bitmap = Nothing
+        Dim imgAmz As Bitmap = Nothing
+        DefineBItmaps(newBM, imgBG, imgBGb, imgAmz)
+
         Dim NewHeight As Integer = 628
         Dim NewWidth As Integer = NewHeight / imgAmz.Height * imgAmz.Width
 
@@ -87,12 +87,24 @@
 
         DisplayMetaDescription()
 
+        DisposeBitmaps(newBM, imgBG, imgBGb, imgAmz)
+
+    End Sub
+
+    Private Shared Sub DisposeBitmaps(newBM As Bitmap, imgBG As Bitmap, imgBGb As Bitmap, imgAmz As Bitmap)
         imgBG.Dispose()
         imgBGb.Dispose()
         imgAmz.Dispose()
         newBM.Dispose()
-
     End Sub
+
+    Private Shared Sub DefineBItmaps(ByRef newBM As Bitmap, ByRef imgBG As Bitmap, ByRef imgBGb As Bitmap, ByRef imgAmz As Bitmap)
+        newBM = New Bitmap(1200, 628)    'the "canvas" to draw on
+        imgBG = Image.FromFile("C:\temp\blank.png")    'the background image
+        imgBGb = Image.FromFile("C:\temp\blank-black.png")   'the black background image
+        imgAmz = Image.FromFile("C:\temp\img.jpg")  'the amazon image
+    End Sub
+
     Const DESTINATION As String = "C:\temp\img.jpg"
 
     Public Sub DownloadSelectedImages()
@@ -137,6 +149,23 @@
                 End If
 
             Next
+        End If
+    End Sub
+
+    Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
+        If ListBox1.Items.Count < 1 Then
+            Dim htmlDocument As HtmlDocument = Me.WebBrowser1.Document
+            Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
+            For Each htmlElement As HtmlElement In htmlElementCollection
+                Dim imgUrl As String = htmlElement.GetAttribute("src")
+                If imgUrl.Contains("jpg") Or imgUrl.Contains("png") Then
+                    ListBox1.Items.Add(imgUrl)
+                End If
+
+            Next
+            WebBrowser1.Visible = False
+            PictureBox1.Visible = True
+            ListBox1.SelectedIndex = 0
         End If
     End Sub
 End Class
