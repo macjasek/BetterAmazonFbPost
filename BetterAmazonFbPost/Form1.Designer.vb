@@ -35,9 +35,8 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Title = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.labelPictureSize = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -150,41 +149,31 @@ Partial Class Form1
         Me.Label2.TabIndex = 16
         Me.Label2.Text = "Description:"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(831, 30)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(13, 13)
-        Me.Label3.TabIndex = 17
-        Me.Label3.Text = "0"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(758, 30)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(67, 13)
+        Me.Label4.Size = New System.Drawing.Size(62, 13)
         Me.Label4.TabIndex = 18
-        Me.Label4.Text = "Image Width"
+        Me.Label4.Text = "Image Size:"
         '
-        'Label5
+        'labelPictureSize
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(851, 30)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(13, 13)
-        Me.Label5.TabIndex = 19
-        Me.Label5.Text = "0"
+        Me.labelPictureSize.AutoSize = True
+        Me.labelPictureSize.Location = New System.Drawing.Point(831, 30)
+        Me.labelPictureSize.Name = "labelPictureSize"
+        Me.labelPictureSize.Size = New System.Drawing.Size(13, 13)
+        Me.labelPictureSize.TabIndex = 19
+        Me.labelPictureSize.Text = "0"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1049, 627)
-        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.labelPictureSize)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Title)
         Me.Controls.Add(Me.Label1)
@@ -219,7 +208,6 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents Title As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
+    Friend WithEvents labelPictureSize As Label
 End Class

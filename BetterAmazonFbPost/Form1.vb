@@ -1,21 +1,19 @@
 ﻿Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         WebBrowser1.Navigate(TextBox1.Text)
-
-
-
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs)
         Dim htmlDocument As HtmlDocument = Me.WebBrowser1.Document
         Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
+
         For Each htmlElement As HtmlElement In htmlElementCollection
             Dim imgUrl As String = htmlElement.GetAttribute("src")
             If imgUrl.Contains("jpg") Or imgUrl.Contains("png") Then
                 ListBox1.Items.Add(imgUrl)
             End If
-
         Next
+
         WebBrowser1.Visible = False
         PictureBox1.Visible = True
         ListBox1.SelectedIndex = 0
@@ -27,18 +25,15 @@
             Dim Destination As String = "C:\temp\imgtmp.jpg"
             OnLineToLocal(ListBox1.SelectedItem.ToString, Destination)
             Dim bmp As New Bitmap("C:\temp\imgtmp.jpg")
-
-            Label3.Text = bmp.Width.ToString()
+            labelPictureSize.Text = bmp.Width.ToString() & " x " & bmp.Height.ToString()
             bmp.Dispose()
-            If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
+            If IO.File.Exists(Destination) Then IO.File.Delete(Destination)
         End If
-
-
     End Sub
 
     Public Sub OnLineToLocal(source As String, Destination As String)
 
-        If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
+        If IO.File.Exists(Destination) Then IO.File.Delete(Destination)
         My.Computer.Network.DownloadFile(source, Destination)
 
     End Sub
@@ -49,7 +44,7 @@
         Source = ListBox1.SelectedItem
         Source = Replace(Source, "SX355", "SX1000")
         Destination = "C:\temp\img.jpg"
-        If System.IO.File.Exists(Destination) Then System.IO.File.Delete(Destination)
+        If IO.File.Exists(Destination) Then IO.File.Delete(Destination)
         My.Computer.Network.DownloadFile(Source, Destination)
     End Sub
 
