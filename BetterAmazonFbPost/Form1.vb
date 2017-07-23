@@ -4,20 +4,30 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs)
-        Dim htmlDocument As HtmlDocument = Me.WebBrowser1.Document
-        Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
 
-        For Each htmlElement As HtmlElement In htmlElementCollection
-            Dim imgUrl As String = htmlElement.GetAttribute("src")
-            If imgUrl.Contains("jpg") Or imgUrl.Contains("png") Then
-                ListBox1.Items.Add(imgUrl)
-            End If
-        Next
+        Dim listOfUrl As List(Of String) = ImgUrlList(Me.WebBrowser1.Document)
+
+        ListBox1.Items.AddRange(listOfUrl.ToArray)
 
         WebBrowser1.Visible = False
         PictureBox1.Visible = True
         ListBox1.SelectedIndex = 0
     End Sub
+
+    Public Function ImgUrlList(htmlDocument As HtmlDocument) As List(Of String)
+        Dim listOfUrl As List(Of String)
+        Dim htmlElementCollection As HtmlElementCollection = htmlDocument.Images
+
+        For Each htmlElement As HtmlElement In htmlElementCollection
+            Dim imgUrl As String = htmlElement.GetAttribute("src")
+            If imgUrl.Contains("jpg") Or imgUrl.Contains("png") Then
+                listOfUrl.Add(imgUrl)
+            End If
+        Next
+
+        Return listOfUrl
+
+    End Function
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         PictureBox1.ImageLocation = ListBox1.SelectedItem
