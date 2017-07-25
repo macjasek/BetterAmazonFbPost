@@ -32,14 +32,21 @@
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         PictureBox1.ImageLocation = ListBox1.SelectedItem
         If ListBox1.SelectedIndex > 0 Then
-            Dim Destination As String = "C:\temp\imgtmp.jpg"
-            OnLineToLocal(ListBox1.SelectedItem.ToString, Destination)
-            Dim bmp As New Bitmap("C:\temp\imgtmp.jpg")
-            labelPictureSize.Text = bmp.Width.ToString() & " x " & bmp.Height.ToString()
-            bmp.Dispose()
-            If IO.File.Exists(Destination) Then IO.File.Delete(Destination)
+            labelPictureSize.Text = ImageDimension(ListBox1.SelectedItem.ToString)
         End If
     End Sub
+
+    Public Function ImageDimension(imgUrl As String) As String
+
+        Dim imgTmp As String = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\imgtmp.jpg"
+        OnLineToLocal(imgUrl, imgTmp)
+        Dim bmp As New Bitmap(imgTmp)
+        Dim result As String = bmp.Width.ToString() & " x " & bmp.Height.ToString()
+        bmp.Dispose()
+        If IO.File.Exists(imgTmp) Then IO.File.Delete(imgTmp)
+        Return result
+
+    End Function
 
     Public Sub OnLineToLocal(source As String, Destination As String)
 
@@ -168,6 +175,8 @@
                 End If
 
             Next
+
+            WebBrowser1.Navigate("about:blank")
             WebBrowser1.Visible = False
             PictureBox1.Visible = True
             ListBox1.SelectedIndex = 0
